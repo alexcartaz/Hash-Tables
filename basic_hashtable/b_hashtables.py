@@ -8,50 +8,32 @@ class Pair:
         self.key = key
         self.value = value
 
-
-# '''
-# Basic hash table
-# Fill this in.  All storage values should be initialized to None
-# '''
 class BasicHashTable:
     def __init__(self, capacity):
-        pass
+        self.storage = [Pair(None,None)] * capacity
+
+def djb2(string, max):
+    hash = 5381
+    for c in string:
+        hash = (hash * 33) + ord(c)
+    return hash % max
+
+def hash_table_insert(BasicHashTable, key, value):
+    table_index = djb2(key, len(BasicHashTable.storage))
+    if BasicHashTable.storage[table_index].value != None:
+        print('Warning, overwriting existing data on insert')
+    BasicHashTable.storage[table_index] = Pair(key,value)
+
+def hash_table_remove(BasicHashTable, key):
+    table_index = djb2(key, len(BasicHashTable.storage))
+    if BasicHashTable.storage[table_index].value == None:
+        print('Warning, removing a value of None')
+    BasicHashTable.storage[table_index] = Pair(None,None)
 
 
-# '''
-# Fill this in.
-# Research and implement the djb2 hash function
-# '''
-def hash(string, max):
-    pass
-
-
-# '''
-# Fill this in.
-
-# If you are overwriting a value with a different key, print a warning.
-# '''
-def hash_table_insert(hash_table, key, value):
-    pass
-
-
-# '''
-# Fill this in.
-
-# If you try to remove a value that isn't there, print a warning.
-# '''
-def hash_table_remove(hash_table, key):
-    pass
-
-
-# '''
-# Fill this in.
-
-# Should return None if the key is not found.
-# '''
-def hash_table_retrieve(hash_table, key):
-    pass
-
+def hash_table_retrieve(BasicHashTable, key):
+    table_index = djb2(key, len(BasicHashTable.storage))
+    return BasicHashTable.storage[table_index].value
 
 def Testing():
     ht = BasicHashTable(16)
