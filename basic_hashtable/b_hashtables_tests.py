@@ -35,6 +35,6 @@ class TestBasicHashTable(unittest.TestCase):
         hash_table_remove(ht, "key-1")
         return_value = hash_table_retrieve(ht, "key-1")
         self.assertTrue(return_value is None)
-    
+     
 if __name__ == '__main__':
     unittest.main()
